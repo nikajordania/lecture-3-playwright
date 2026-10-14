@@ -39,6 +39,7 @@ uv run pytest
 | 05 Organize | Fixtures: `page`, `context`, `logged_in` | `tests/test_13_fixtures.py` + `conftest.py` |
 | 05 Organize | Every test brings its own data | `tests/test_14_independence.py` + `conftest.py` |
 | 05 Debug | Trace and bug report | `tests/test_15_debug_trace.py` |
+| 03 Check | Selenium waits → Playwright: implicit, explicit, fluent, all `expected_conditions` | `tests/waits/` (see `tests/waits/README.md`) |
 
 ## Run only what you need
 
