@@ -1,0 +1,18 @@
+[project]
+name = "lecture-3-playwright"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = [
+    "pytest>=9.1.1",
+    "pytest-playwright>=0.10.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# "broken" tests fail on purpose (trace demo) - hidden from a normal run.
+addopts = '-m "not broken"'
+markers = [
+    "smoke: a few quick checks of the main features",
+    "slow: waits ~5 s for something on the page",
+    "broken: fails on purpose - for the trace demo",
+]
