@@ -4,7 +4,7 @@ Slide: "Every user gesture has its own method".
     click · dblclick · fill · press · check · select_option · hover · drag_to · set_input_files
 
 Each action WAITS until the element is ready (visible, stable, enabled),
-see tests/test_11_auto_waiting.py.
+see tests/check/test_02_auto_waiting.py.
 """
 from pathlib import Path
 

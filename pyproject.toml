@@ -10,7 +10,8 @@ dependencies = [
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 # "broken" tests fail on purpose (trace demo) - hidden from a normal run.
-addopts = '-m "not broken"'
+# --headed: always open a visible browser window (no headless mode).
+addopts = '-m "not broken" --headed'
 markers = [
     "smoke: a few quick checks of the main features",
     "slow: waits ~5 s for something on the page",

@@ -4,7 +4,7 @@ Slides: "Test design tells you which values to try",
         "Don't copy the test. Separate the data.",
         "One function, a table of data, three tests".
 
-    uv run pytest tests/test_12_parametrize.py -v
+    uv run pytest tests/data/test_01_parametrize.py -v
     uv run pytest -k "bad user" -v          <- one case by its id
 """
 import pytest

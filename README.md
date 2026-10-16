@@ -24,34 +24,34 @@ uv run pytest
 
 | Part | Slide topic | File |
 |---|---|---|
-| 01 Find | DOM tree, DevTools, CSS selectors | `tests/test_01_css_selectors.py` |
-| 01 Find | XPath: axes, `contains()`, `last()` | `tests/test_02_xpath.py` |
-| 01 Find | An id that changes on every load | `tests/test_03_dynamic_ids.py` |
-| 01 Find | Locator ladder: role, label, placeholder, text, alt, title, test id | `tests/test_04_user_facing_locators.py` |
-| 01 Find | The accessibility tree | `tests/test_05_accessibility_tree.py` |
-| 01 Find | Strict mode: one locator, three buttons | `tests/test_06_strict_mode.py` |
-| 01 Find | Chaining and `filter()` | `tests/test_07_chaining_and_filter.py` |
-| 02 Act | Every gesture has its own method | `tests/test_08_actions.py` |
-| 02 Act | Dialogs and new tabs | `tests/test_09_dialogs_and_tabs.py` |
-| 03 Check | `expect()` assertions | `tests/test_10_assertions.py` |
-| 03 Check | Auto-waiting, assert vs expect | `tests/test_11_auto_waiting.py` |
-| 04 Data | Boundaries, equivalence classes, `parametrize` | `tests/test_12_parametrize.py` |
-| 05 Organize | Fixtures: `page`, `context`, `logged_in` | `tests/test_13_fixtures.py` + `conftest.py` |
-| 05 Organize | Every test brings its own data | `tests/test_14_independence.py` + `conftest.py` |
-| 05 Debug | Trace and bug report | `tests/test_15_debug_trace.py` |
+| 01 Find | DOM tree, DevTools, CSS selectors | `tests/find/test_01_css_selectors.py` |
+| 01 Find | XPath: axes, `contains()`, `last()` | `tests/find/test_02_xpath.py` |
+| 01 Find | An id that changes on every load | `tests/find/test_03_dynamic_ids.py` |
+| 01 Find | Locator ladder: role, label, placeholder, text, alt, title, test id | `tests/find/test_04_user_facing_locators.py` |
+| 01 Find | The accessibility tree | `tests/find/test_05_accessibility_tree.py` |
+| 01 Find | Strict mode: one locator, three buttons | `tests/find/test_06_strict_mode.py` |
+| 01 Find | Chaining and `filter()` | `tests/find/test_07_chaining_and_filter.py` |
+| 02 Act | Every gesture has its own method | `tests/act/test_01_actions.py` |
+| 02 Act | Dialogs and new tabs | `tests/act/test_02_dialogs_and_tabs.py` |
+| 03 Check | `expect()` assertions | `tests/check/test_01_assertions.py` |
+| 03 Check | Auto-waiting, assert vs expect | `tests/check/test_02_auto_waiting.py` |
+| 04 Data | Boundaries, equivalence classes, `parametrize` | `tests/data/test_01_parametrize.py` |
+| 05 Organize | Fixtures: `page`, `context`, `logged_in` | `tests/organize/test_01_fixtures.py` + `conftest.py` |
+| 05 Organize | Every test brings its own data | `tests/organize/test_02_independence.py` + `conftest.py` |
+| 05 Debug | Trace and bug report | `tests/debug/test_01_debug_trace.py` |
 | 03 Check | Selenium waits → Playwright: implicit, explicit, fluent, all `expected_conditions` | `tests/waits/` (see `tests/waits/README.md`) |
 
 ## Run only what you need
 
 ```bash
-uv run pytest tests/test_06_strict_mode.py -v     # one file
+uv run pytest tests/find/test_06_strict_mode.py -v     # one file
 uv run pytest -k "strict or dialog" -v            # names that contain these words
 uv run pytest -k "bad user" -v                    # one parametrize case by its id
 uv run pytest -m smoke -v                         # tests marked @pytest.mark.smoke
 uv run pytest -m "not slow"                       # skip the ~5 s waiting tests
 uv run pytest --lf                                # only the tests that failed last time
 uv run pytest -x                                  # stop at the first failure
-uv run pytest -s tests/test_05_accessibility_tree.py   # show print() output
+uv run pytest -s tests/find/test_05_accessibility_tree.py   # show print() output
 ```
 
 Markers are listed in `pyproject.toml`. A marker that is not listed there gives a warning.
@@ -59,7 +59,7 @@ Markers are listed in `pyproject.toml`. A marker that is not listed there gives 
 ## Watch and debug
 
 ```bash
-uv run pytest tests/test_08_actions.py --headed --slowmo 500    # watch the browser
+uv run pytest tests/act/test_01_actions.py --headed --slowmo 500    # watch the browser
 uv run pytest --browser firefox                                  # another browser (install it first)
 
 # The trace demo: this test fails ON PURPOSE (it is hidden from a normal run)
