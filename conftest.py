@@ -3,7 +3,7 @@
 pytest finds conftest.py by itself: test files use these fixtures
 by writing their name as a test argument. No import is needed.
 
-Slide 05 · "Fixtures prepare the stage for every test".
+Slide: "Fixtures prepare the stage for every test".
 """
 import re
 import uuid
@@ -30,23 +30,6 @@ def block_ads(page: Page):
     """
     page.route(AD_SERVERS, lambda route: route.abort())
     yield
-
-
-@pytest.fixture
-def logged_in(page: Page):
-    """Opens the-internet and logs in. The test starts on /secure."""
-    # --- setup: everything BEFORE yield --------------------------------
-    page.goto(f"{THE_INTERNET}/login")
-    page.get_by_label("Username").fill("tomsmith")
-    page.get_by_label("Password").fill("SuperSecretPassword!")
-    page.get_by_role("button", name="Login").click()
-    expect(page).to_have_url(f"{THE_INTERNET}/secure")
-
-    yield page  # --- the test runs here ---------------------------------
-
-    # --- teardown: everything AFTER yield (runs even if the test failed) --
-    if page.url.endswith("/secure"):
-        page.get_by_role("link", name="Logout").click()
 
 
 @pytest.fixture

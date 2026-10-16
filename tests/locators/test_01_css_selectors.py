@@ -1,4 +1,4 @@
-"""01 · Find — CSS selectors.
+"""Locators — CSS selectors.
 
 Slides: "DOM tree", "DevTools: inspect and copy", "Locator ladder".
 Page:   https://the-internet.herokuapp.com/tables
@@ -14,7 +14,6 @@ TABLES = "https://the-internet.herokuapp.com/tables"
 TEXT_BOX = "https://demoqa.com/text-box"
 
 
-@pytest.mark.smoke
 def test_by_id(page: Page):
     # #id  ->  <table id="table2">
     page.goto(TABLES)

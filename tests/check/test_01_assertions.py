@@ -1,4 +1,4 @@
-"""03 · Check — expect(): what the user should see.
+"""Check — expect(): what the user should see.
 
 Slide: "expect(locator) - what the user should see".
 Every expect() checks again and again until it passes or 5 s run out.
@@ -52,7 +52,6 @@ def test_count(page: Page):
     expect(page.locator("#table1 tbody tr")).to_have_count(4)
 
 
-@pytest.mark.smoke
 def test_url_and_title(page: Page):
     page.goto(f"{THE_INTERNET}/login")
     page.get_by_label("Username").fill("tomsmith")

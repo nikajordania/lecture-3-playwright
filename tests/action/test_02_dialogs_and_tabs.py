@@ -1,4 +1,4 @@
-"""02 · Act — dialogs (alert, confirm, prompt) and new tabs.
+"""Action — dialogs (alert, confirm, prompt) and new tabs.
 
 Slide: "Say how to answer before the dialog opens".
     1 page.once("dialog", ...)   <- register the answer FIRST

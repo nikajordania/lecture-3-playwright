@@ -1,4 +1,4 @@
-"""01 · Find — XPath.
+"""Locators — XPath.
 
 Slide: "Locator ladder" (XPath is the last step: use it when nothing else works).
 Page:  https://the-internet.herokuapp.com/tables
@@ -18,19 +18,17 @@ from playwright.sync_api import Page, expect
 TABLES = "https://the-internet.herokuapp.com/tables"
 CHALLENGING_DOM = "https://the-internet.herokuapp.com/challenging_dom"
 
-TABLE1 = "//table[@id='table1']"
-
 
 def test_xpath_prefix_and_text(page: Page):
     page.goto(TABLES)
     # A selector that starts with // is XPath. "xpath=" makes it explicit.
     expect(page.locator("xpath=//h3")).to_have_text("Data Tables")
-    expect(page.locator(f"{TABLE1}//td[text()='Jason']")).to_be_visible()
+    expect(page.locator("//table[@id='table1']//td[text()='Jason']")).to_be_visible()
 
 
 def test_following_and_preceding_sibling(page: Page):
     page.goto(TABLES)
-    jason = f"{TABLE1}//td[text()='Jason']"
+    jason = "//table[@id='table1']//td[text()='Jason']"
     # following-sibling::td[1] = the next cell to the right -> Email
     expect(page.locator(f"{jason}/following-sibling::td[1]")).to_have_text("jdoe@hotmail.com")
     # preceding-sibling::td = the cell to the left -> Last Name
@@ -40,23 +38,23 @@ def test_following_and_preceding_sibling(page: Page):
 def test_parent_and_position(page: Page):
     page.goto(TABLES)
     # Go UP to the row (parent::tr), then DOWN to the 4th cell (Due).
-    due = page.locator(f"{TABLE1}//td[text()='jdoe@hotmail.com']/parent::tr/td[4]")
+    due = page.locator("//table[@id='table1']//td[text()='jdoe@hotmail.com']/parent::tr/td[4]")
     expect(due).to_have_text("$100.00")
 
     # (...)[last()] = the last match on the page
-    expect(page.locator(f"({TABLE1}//tbody/tr)[last()]/td[1]")).to_have_text("Conway")
-    expect(page.locator(f"{TABLE1}//tbody/tr")).to_have_count(4)
+    expect(page.locator("(//table[@id='table1']//tbody/tr)[last()]/td[1]")).to_have_text("Conway")
+    expect(page.locator("//table[@id='table1']//tbody/tr")).to_have_count(4)
 
 
 def test_contains_and_starts_with(page: Page):
     page.goto(TABLES)
     # contains(text(), '...') = part of the text
-    expect(page.locator(f"{TABLE1}//td[contains(text(), '@yahoo')]")).to_have_text(
+    expect(page.locator("//table[@id='table1']//td[contains(text(), '@yahoo')]")).to_have_text(
         "fbach@yahoo.com"
     )
     # starts-with() and "and"
     expect(
-        page.locator(f"{TABLE1}//td[starts-with(text(), '$5') and contains(text(), '.00')]")
+        page.locator("//table[@id='table1']//td[starts-with(text(), '$5') and contains(text(), '.00')]")
     ).to_have_count(3)  # $50.00, $51.00, $50.00
 
 

@@ -1,4 +1,4 @@
-"""01 · Find — dynamic ids.
+"""Locators — dynamic ids.
 
 Slide: "An id that changes on every load".
 Page:  https://demoqa.com/buttons

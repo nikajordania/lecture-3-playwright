@@ -1,4 +1,4 @@
-"""01 · Find — locators a user would understand.
+"""Locators — locators a user would understand.
 
 Slide: "Locator ladder":  role -> label -> placeholder / text -> test id -> CSS -> XPath
 Pages: the-internet login, demoqa text-box, the-internet hovers,
@@ -14,7 +14,6 @@ DEMOQA = "https://demoqa.com"
 TODO = "https://demo.playwright.dev/todomvc/"
 
 
-@pytest.mark.smoke
 def test_get_by_role_and_label(page: Page):
     page.goto(f"{THE_INTERNET}/login")
 

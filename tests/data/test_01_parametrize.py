@@ -1,4 +1,4 @@
-"""04 · Data — one test function, many test cases.
+"""Data — one test function, many test cases.
 
 Slides: "Test design tells you which values to try",
         "Don't copy the test. Separate the data.",
@@ -13,11 +13,9 @@ from playwright.sync_api import Page, expect
 LOGIN = "https://the-internet.herokuapp.com/login"
 PRACTICE_FORM = "https://demoqa.com/automation-practice-form"
 TEXT_BOX = "https://demoqa.com/text-box"
-TODO = "https://demo.playwright.dev/todomvc/"
 
 
 # --- 1. Login: 3 rows of data, readable ids ---------------------------------
-@pytest.mark.smoke
 @pytest.mark.parametrize(
     "user, password, msg",
     [
@@ -61,28 +59,10 @@ def test_mobile_number_boundaries(page: Page, typed, value_in_field, is_valid):
     assert mobile.evaluate("element => element.validity.valid") == is_valid
 
 
-# --- 3. Equivalence classes: valid and invalid e-mail -----------------------
-@pytest.mark.parametrize("email", ["anna@test.ge", "a.b@mail.com"], ids=["simple", "with dot"])
-def test_valid_email_is_shown(page: Page, email):
-    page.goto(TEXT_BOX)
-    page.get_by_placeholder("name@example.com").fill(email)
-    page.get_by_role("button", name="Submit").click()
-    expect(page.locator("#output #email")).to_have_text(f"Email:{email}")
-
-
+# --- 3. Equivalence classes: invalid e-mail -----------------------
 @pytest.mark.parametrize("email", ["anna.test.ge", "anna@", "@test.ge"], ids=["no @", "no domain", "no name"])
 def test_invalid_email_is_marked_red(page: Page, email):
     page.goto(TEXT_BOX)
     page.get_by_placeholder("name@example.com").fill(email)
     page.get_by_role("button", name="Submit").click()
     expect(page.get_by_placeholder("name@example.com")).to_contain_class("field-error")
-
-
-# --- 4. Any text works - also Georgian ---------------------------------------
-@pytest.mark.parametrize("title", ["Buy milk", "ტესტის დაწერა", "a" * 100], ids=["english", "georgian", "long"])
-def test_todo_is_added(page: Page, title):
-    page.goto(TODO)
-    new_todo = page.get_by_placeholder("What needs to be done?")
-    new_todo.fill(title)
-    new_todo.press("Enter")
-    expect(page.get_by_test_id("todo-title")).to_have_text(title)

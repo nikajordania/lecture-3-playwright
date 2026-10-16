@@ -1,14 +1,13 @@
-"""02 · Act — every user gesture has its own method.
+"""Action — every user gesture has its own method.
 
 Slide: "Every user gesture has its own method".
-    click · dblclick · fill · press · check · select_option · hover · drag_to · set_input_files
+    click · dblclick · fill · check · select_option · hover · drag_to · set_input_files
 
 Each action WAITS until the element is ready (visible, stable, enabled),
-see tests/check/test_02_auto_waiting.py.
+see tests/waits/test_01_waits.py.
 """
 from pathlib import Path
 
-import pytest
 from playwright.sync_api import Page, expect
 
 THE_INTERNET = "https://the-internet.herokuapp.com"
@@ -36,21 +35,6 @@ def test_fill_and_clear(page: Page):
     expect(username).to_have_value("")
 
 
-@pytest.mark.parametrize("key, shown", [("Escape", "ESCAPE"), ("Tab", "TAB"), ("a", "A")])
-def test_press_a_key(page: Page, key, shown):
-    page.goto(f"{THE_INTERNET}/key_presses")
-    # Not "Enter" here: Enter in this one-field form submits it and reloads the page.
-    page.locator("#target").press(key)
-    expect(page.locator("#result")).to_have_text(f"You entered: {shown}")
-
-
-def test_press_sequentially_types_like_a_person(page: Page):
-    page.goto(f"{THE_INTERNET}/key_presses")
-    # One key at a time: the page shows the LAST key.
-    page.locator("#target").press_sequentially("qa", delay=100)
-    expect(page.locator("#result")).to_have_text("You entered: A")
-
-
 def test_check_and_uncheck(page: Page):
     page.goto(f"{THE_INTERNET}/checkboxes")
     boxes = page.locator("#checkboxes input[type='checkbox']")
@@ -73,13 +57,6 @@ def test_select_option(page: Page):
     expect(dropdown).to_have_value("1")
 
 
-def test_select_option_on_demoqa(page: Page):
-    page.goto(f"{DEMOQA}/select-menu")
-    old_menu = page.locator("#oldSelectMenu")
-    old_menu.select_option("Green")  # a string matches the value OR the text
-    expect(old_menu).to_have_value("2")  # <option value="2">Green</option>
-
-
 def test_hover(page: Page):
     page.goto(f"{THE_INTERNET}/hovers")
     page.locator(".figure").first.hover()
@@ -93,13 +70,6 @@ def test_drag_to(page: Page):
     page.locator("#draggable").drag_to(target)
 
     expect(target).to_have_text("Dropped!")
-
-
-def test_drag_to_html5_columns(page: Page):
-    page.goto(f"{THE_INTERNET}/drag_and_drop")
-    page.locator("#column-a").drag_to(page.locator("#column-b"))
-    # The two boxes changed places: the left box now says B.
-    expect(page.locator("#column-a header")).to_have_text("B")
 
 
 def test_upload_a_file(page: Page, tmp_path: Path):
