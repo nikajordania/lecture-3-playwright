@@ -35,6 +35,7 @@ If a site is slow, run the failed tests again: `uv run pytest --lf`.
 | 05 Change the network (route) | `test_10_route.py` |
 | 06 Inspector · Trace Viewer | `test_11_debugging.py` |
 | 06 codegen: draft → test, test ids | `test_12_codegen.py` |
+| Practice: full shop scenario (POM, parametrize, money, storage) | `test_13_checkout_e2e.py`, `pages/saucedemo.py` |
 | 06 codegen with your own setup (page.pause) | `codegen_custom_setup.py` (run with `uv run python`) |
 
 ## DevTools panel → Playwright
